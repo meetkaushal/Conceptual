@@ -83,6 +83,10 @@
 			<fk name="FK_SCRIPT_SUMMARY_3" to_schema="CONCEPTUAL" to_table="GPI" >
 				<fk_column name="GPI" pk="GPI" />
 			</fk>
+			<fk name="FK_SCRIPT_SUMMARY_4" to_schema="CONCEPTUAL" to_table="TRANSFER" >
+				<fk_column name="UT_ID" pk="UT_ID" />
+				<fk_column name="RX_NUMBER" pk="RX_NUMBER" />
+			</fk>
 		</table>
 		<table name="PRESCRIBER_CLINIC_LINK" >
 			<column name="UT_ID" type="SMALLINT" jt="5" mandatory="y" />
@@ -183,6 +187,20 @@
 				<column name="PRESCRIBER_ID" />
 			</index>
 		</table>
+		<table name="TRANSFER" >
+			<column name="UT_ID" type="SMALLINT" jt="5" mandatory="y" />
+			<column name="RX_NUMBER" type="INTEGER" jt="4" mandatory="y" />
+			<column name="TRANSFER_ID" type="INTEGER" jt="4" mandatory="y" />
+			<index name="PK_TRANSFER" unique="PRIMARY_KEY" >
+				<column name="UT_ID" />
+				<column name="RX_NUMBER" />
+				<column name="TRANSFER_ID" />
+			</index>
+			<index name="PK_TRANSFER_0" unique="UNIQUE" >
+				<column name="UT_ID" />
+				<column name="RX_NUMBER" />
+			</index>
+		</table>
 	</schema>
 	<layout name="Conceptual" joined_routing="y" show_column_type="y" show_relation_columns="y" >
 		<entity schema="CONCEPTUAL" name="PATIENT" x="1022" y="42" />
@@ -195,5 +213,6 @@
 		<entity schema="CONCEPTUAL" name="DRUG" x="140" y="378" />
 		<entity schema="CONCEPTUAL" name="SCRIPT_TRANSACTIONS" x="462" y="70" />
 		<entity schema="CONCEPTUAL" name="SCRIPT_SUMMARY" x="518" y="266" />
+		<entity schema="CONCEPTUAL" name="TRANSFER" x="812" y="98" />
 	</layout>
 </project>
