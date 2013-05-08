@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="Conceptual" database="Db2" >
+	<schema name="CONCEPTUAL" schemaname="CONCEPTUAL" defo="y" >
+		<table name="DRUG" >
+			<column name="NDC" type="CHAR" length="11" jt="1" mandatory="y" />
+			<column name="GPI" type="CHAR" length="24" jt="1" />
+			<index name="PK_DRUG" unique="PRIMARY_KEY" >
+				<column name="NDC" />
+			</index>
+			<index name="IDX_DRUG" unique="NORMAL" >
+				<column name="GPI" />
+			</index>
+			<fk name="FK_DRUG" to_schema="CONCEPTUAL" to_table="GPI" >
+				<fk_column name="GPI" pk="GPI" />
+			</fk>
+		</table>
+		<table name="GPI" >
+			<column name="GPI" type="CHAR" length="24" jt="1" mandatory="y" />
+			<column name="GPI_NAME" type="CHAR" length="100" jt="1" />
+			<index name="PK_GPI" unique="PRIMARY_KEY" >
+				<column name="GPI" />
+			</index>
+		</table>
+		<table name="SCRIPT_TRANSACTIONS" >
+			<column name="UT_ID" type="SMALLINT" jt="5" mandatory="y" />
+			<column name="RX_NUMBER" type="INTEGER" jt="4" mandatory="y" />
+			<column name="TX_NUMBER" type="INTEGER" jt="4" mandatory="y" />
+			<column name="DISPENSED_NDC" type="CHAR" length="11" jt="1" />
+			<index name="PK_SCRIPT_TRANSACTIONS" unique="PRIMARY_KEY" >
+				<column name="UT_ID" />
+				<column name="RX_NUMBER" />
+				<column name="TX_NUMBER" />
+			</index>
+			<index name="IDX_SCRIPT_TRANSACTIONS" unique="NORMAL" >
+				<column name="DISPENSED_NDC" />
+			</index>
+			<index name="PK_SCRIPT_TRANSACTIONS_0" unique="UNIQUE" >
+				<column name="UT_ID" />
+				<column name="RX_NUMBER" />
+			</index>
+			<fk name="FK_SCRIPT_TRANSACTIONS" to_schema="CONCEPTUAL" to_table="DRUG" >
+				<fk_column name="DISPENSED_NDC" pk="NDC" />
+			</fk>
+		</table>
+		<table name="SCRIPT_SUMMARY" >
+			<column name="UT_ID" type="SMALLINT" jt="5" mandatory="y" />
+			<column name="RX_NUMBER" type="INTEGER" jt="4" mandatory="y" />
+			<column name="PATIENT_ID" type="INTEGER" jt="4" />
+			<column name="PRESCRIBER_CLINIC_LINK_ID" type="INTEGER" jt="4" />
+			<column name="NDC" type="CHAR" length="11" jt="1" />
+			<column name="GPI" type="CHAR" length="24" jt="1" />
+			<index name="PK_SCRIPT_SUMMARY" unique="PRIMARY_KEY" >
+				<column name="UT_ID" />
+				<column name="RX_NUMBER" />
+			</index>
+			<index name="IDX_SCRIPT_SUMMARY" unique="NORMAL" >
+				<column name="PATIENT_ID" />
+			</index>
+			<index name="IDX_SCRIPT_SUMMARY_0" unique="NORMAL" >
+				<column name="UT_ID" />
+				<column name="PRESCRIBER_CLINIC_LINK_ID" />
+			</index>
+			<index name="IDX_SCRIPT_SUMMARY_1" unique="NORMAL" >
+				<column name="NDC" />
+			</index>
+			<index name="IDX_SCRIPT_SUMMARY_2" unique="NORMAL" >
+				<column name="GPI" />
+			</index>
+			<fk name="FK_SCRIPT_SUMMARY" to_schema="CONCEPTUAL" to_table="SCRIPT_TRANSACTIONS" >
+				<fk_column name="UT_ID" pk="UT_ID" />
+				<fk_column name="RX_NUMBER" pk="RX_NUMBER" />
+			</fk>
+			<fk name="FK_SCRIPT_SUMMARY_0" to_schema="CONCEPTUAL" to_table="PATIENT" >
+				<fk_column name="PATIENT_ID" pk="PATIENT_ID" />
+			</fk>
+			<fk name="FK_SCRIPT_SUMMARY_1" to_schema="CONCEPTUAL" to_table="PRESCRIBER_CLINIC_LINK" >
+				<fk_column name="UT_ID" pk="UT_ID" />
+				<fk_column name="PRESCRIBER_CLINIC_LINK_ID" pk="PRESCRIBER_CLINIC_LINK_ID" />
+			</fk>
+			<fk name="FK_SCRIPT_SUMMARY_2" to_schema="CONCEPTUAL" to_table="DRUG" >
+				<fk_column name="NDC" pk="NDC" />
+			</fk>
+			<fk name="FK_SCRIPT_SUMMARY_3" to_schema="CONCEPTUAL" to_table="GPI" >
+				<fk_column name="GPI" pk="GPI" />
+			</fk>
+		</table>
+		<table name="PRESCRIBER_CLINIC_LINK" >
+			<column name="UT_ID" type="SMALLINT" jt="5" mandatory="y" />
+			<column name="PRESCRIBER_ID" type="INTEGER" jt="4" mandatory="y" />
+			<column name="CLINIC_ID" type="INTEGER" jt="4" mandatory="y" />
+			<column name="PRESCRIBER_CLINIC_LINK_ID" type="INTEGER" jt="4" mandatory="y" />
+			<index name="IDX_PRESCRIBER_CLINIC_LINK" unique="NORMAL" >
+				<column name="UT_ID" />
+				<column name="CLINIC_ID" />
+			</index>
+			<index name="IDX_PRESCRIBER_CLINIC_LINK_0" unique="NORMAL" >
+				<column name="UT_ID" />
+				<column name="PRESCRIBER_ID" />
+			</index>
+			<index name="PK_PRESCRIBER_CLINIC_LINK" unique="PRIMARY_KEY" >
+				<column name="UT_ID" />
+				<column name="PRESCRIBER_ID" />
+				<column name="CLINIC_ID" />
+				<column name="PRESCRIBER_CLINIC_LINK_ID" />
+			</index>
+			<index name="PK_PRESCRIBER_CLINIC_LINK_0" unique="UNIQUE" >
+				<column name="UT_ID" />
+				<column name="PRESCRIBER_CLINIC_LINK_ID" />
+			</index>
+			<fk name="FK_PRESCRIBER_CLINIC_LINK" to_schema="CONCEPTUAL" to_table="CLINIC" >
+				<fk_column name="UT_ID" pk="UT_ID" />
+				<fk_column name="CLINIC_ID" pk="CLINIC_ID" />
+			</fk>
+			<fk name="FK_PRESCRIBER_CLINIC_LINK_0" to_schema="CONCEPTUAL" to_table="PRESCRIBER" >
+				<fk_column name="UT_ID" pk="UT_ID" />
+				<fk_column name="PRESCRIBER_ID" pk="PRESCRIBER_ID" />
+			</fk>
+		</table>
+		<table name="COMPOUND" >
+			<column name="UT_ID" type="SMALLINT" jt="5" mandatory="y" />
+			<column name="COMPOUND_ID" type="INTEGER" jt="4" mandatory="y" />
+			<column name="MIXING_INSTRUCTIONS" type="CHAR" length="255" jt="1" />
+			<index name="PK_COMPOUND" unique="PRIMARY_KEY" >
+				<column name="UT_ID" />
+				<column name="COMPOUND_ID" />
+			</index>
+		</table>
+		<table name="COMPOUND_INGREDIENTS" >
+			<column name="UT_ID" type="SMALLINT" jt="5" mandatory="y" />
+			<column name="COMPOUND_ID" type="INTEGER" jt="4" mandatory="y" />
+			<column name="COMPOUND_INGREDIENTS_ID" type="INTEGER" jt="4" mandatory="y" />
+			<column name="NDC" type="CHAR" length="11" jt="1" />
+			<column name="GPI" type="CHAR" length="24" jt="1" />
+			<index name="PK_COMPOUND_INGREDIENTS" unique="PRIMARY_KEY" >
+				<column name="UT_ID" />
+				<column name="COMPOUND_ID" />
+				<column name="COMPOUND_INGREDIENTS_ID" />
+			</index>
+			<index name="IDX_COMPOUND_INGREDIENTS" unique="NORMAL" >
+				<column name="GPI" />
+			</index>
+			<index name="IDX_COMPOUND_INGREDIENTS_0" unique="NORMAL" >
+				<column name="NDC" />
+			</index>
+			<index name="IDX_COMPOUND_INGREDIENTS_1" unique="NORMAL" >
+				<column name="UT_ID" />
+				<column name="COMPOUND_ID" />
+			</index>
+			<fk name="FK_COMPOUND_INGREDIENTS" to_schema="CONCEPTUAL" to_table="GPI" >
+				<fk_column name="GPI" pk="GPI" />
+			</fk>
+			<fk name="FK_COMPOUND_INGREDIENTS_0" to_schema="CONCEPTUAL" to_table="DRUG" >
+				<fk_column name="NDC" pk="NDC" />
+			</fk>
+			<fk name="FK_COMPOUND_INGREDIENTS_1" to_schema="CONCEPTUAL" to_table="COMPOUND" >
+				<fk_column name="UT_ID" pk="UT_ID" />
+				<fk_column name="COMPOUND_ID" pk="COMPOUND_ID" />
+			</fk>
+		</table>
+		<table name="PATIENT" >
+			<column name="PATIENT_ID" type="INTEGER" jt="4" mandatory="y" />
+			<column name="FIRST_NAME" type="CHAR" length="100" jt="1" />
+			<column name="LAST_NAME" type="CHAR" length="100" jt="1" />
+			<index name="PK_PATIENT" unique="PRIMARY_KEY" >
+				<column name="PATIENT_ID" />
+			</index>
+		</table>
+		<table name="CLINIC" >
+			<column name="UT_ID" type="SMALLINT" jt="5" mandatory="y" />
+			<column name="CLINIC_ID" type="INTEGER" jt="4" mandatory="y" />
+			<column name="CLINIC_NAME" type="CHAR" length="100" jt="1" />
+			<index name="PK_CLINIC" unique="PRIMARY_KEY" >
+				<column name="UT_ID" />
+				<column name="CLINIC_ID" />
+			</index>
+		</table>
+		<table name="PRESCRIBER" >
+			<column name="UT_ID" type="SMALLINT" jt="5" mandatory="y" />
+			<column name="PRESCRIBER_ID" type="INTEGER" jt="4" mandatory="y" />
+			<column name="PRESCRIBER_NAME" type="CHAR" length="100" jt="1" />
+			<index name="PK_PRESCRIBER" unique="PRIMARY_KEY" >
+				<column name="UT_ID" />
+				<column name="PRESCRIBER_ID" />
+			</index>
+		</table>
+	</schema>
+	<layout name="Conceptual" joined_routing="y" show_column_type="y" show_relation_columns="y" >
+		<entity schema="CONCEPTUAL" name="PATIENT" x="1022" y="42" />
+		<entity schema="CONCEPTUAL" name="PRESCRIBER" x="924" y="588" />
+		<entity schema="CONCEPTUAL" name="CLINIC" x="588" y="602" />
+		<entity schema="CONCEPTUAL" name="PRESCRIBER_CLINIC_LINK" x="518" y="462" />
+		<entity schema="CONCEPTUAL" name="COMPOUND" x="56" y="56" />
+		<entity schema="CONCEPTUAL" name="COMPOUND_INGREDIENTS" x="42" y="196" />
+		<entity schema="CONCEPTUAL" name="GPI" x="42" y="504" />
+		<entity schema="CONCEPTUAL" name="DRUG" x="140" y="378" />
+		<entity schema="CONCEPTUAL" name="SCRIPT_TRANSACTIONS" x="462" y="70" />
+		<entity schema="CONCEPTUAL" name="SCRIPT_SUMMARY" x="518" y="266" />
+	</layout>
+</project>
