@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<project name="Conceptual" database="Db2" >
+<project name="Conceptual" id="Project8784677" database="Db2" >
 	<schema name="CONCEPTUAL" schemaname="CONCEPTUAL" defo="y" >
 		<table name="DRUG" >
 			<column name="NDC" type="CHAR" length="11" jt="1" mandatory="y" />
@@ -202,17 +202,17 @@
 			</index>
 		</table>
 	</schema>
-	<layout name="Conceptual" joined_routing="y" show_column_type="y" show_relation_columns="y" >
-		<entity schema="CONCEPTUAL" name="PATIENT" x="1022" y="42" />
-		<entity schema="CONCEPTUAL" name="PRESCRIBER" x="924" y="588" />
-		<entity schema="CONCEPTUAL" name="CLINIC" x="588" y="602" />
-		<entity schema="CONCEPTUAL" name="PRESCRIBER_CLINIC_LINK" x="518" y="462" />
-		<entity schema="CONCEPTUAL" name="COMPOUND" x="56" y="56" />
-		<entity schema="CONCEPTUAL" name="COMPOUND_INGREDIENTS" x="42" y="196" />
-		<entity schema="CONCEPTUAL" name="GPI" x="42" y="504" />
-		<entity schema="CONCEPTUAL" name="DRUG" x="140" y="378" />
-		<entity schema="CONCEPTUAL" name="SCRIPT_TRANSACTIONS" x="462" y="70" />
-		<entity schema="CONCEPTUAL" name="SCRIPT_SUMMARY" x="518" y="266" />
-		<entity schema="CONCEPTUAL" name="TRANSFER" x="812" y="98" />
+	<layout id="Layout8784689" name="Conceptual" joined_routing="y" show_column_type="y" show_relation_columns="y" >
+		<entity schema="CONCEPTUAL" name="PATIENT" color="c0d4f3" x="1020" y="60" />
+		<entity schema="CONCEPTUAL" name="PRESCRIBER" color="c0d4f3" x="930" y="600" />
+		<entity schema="CONCEPTUAL" name="CLINIC" color="c0d4f3" x="585" y="615" />
+		<entity schema="CONCEPTUAL" name="PRESCRIBER_CLINIC_LINK" color="c0d4f3" x="525" y="480" />
+		<entity schema="CONCEPTUAL" name="COMPOUND" color="c0d4f3" x="60" y="75" />
+		<entity schema="CONCEPTUAL" name="COMPOUND_INGREDIENTS" color="c0d4f3" x="45" y="210" />
+		<entity schema="CONCEPTUAL" name="GPI" color="c0d4f3" x="45" y="525" />
+		<entity schema="CONCEPTUAL" name="DRUG" color="c0d4f3" x="135" y="390" />
+		<entity schema="CONCEPTUAL" name="SCRIPT_TRANSACTIONS" color="c0d4f3" x="465" y="90" />
+		<entity schema="CONCEPTUAL" name="SCRIPT_SUMMARY" color="c0d4f3" x="525" y="285" />
+		<entity schema="CONCEPTUAL" name="TRANSFER" color="c0d4f3" x="810" y="120" />
 	</layout>
 </project>
